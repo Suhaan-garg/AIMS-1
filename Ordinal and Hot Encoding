@@ -1,0 +1,21 @@
+import pandas as pd
+import numpy as np
+
+#Ordinal Encoding
+data = {'Breakfast': ['Everyday', 'Never', 'Rarely', 'Most days', 'Never']}
+df = pd.DataFrame(data)
+order = ['Never', 'Rarely', 'Most days','Everyday']
+df['Values'] = df['Breakfast'].apply(lambda x: order.index(x))
+print(df)
+
+#One hot encoding
+data = {'Colour': ['Red', 'Red', 'Yellow', 'Green', 'Yellow']}
+df = pd.DataFrame(data)
+
+def one_hot_encode(df, column_name):
+    unique_vals = df[column_name].unique()
+    for val in unique_vals:
+        df[f"{column_name}_{val}"] = df[column_name].apply(lambda x: 1 if x == val else 0)
+    return df
+df_one_hot_encoded = one_hot_encode(df, 'Colour')
+print(df_one_hot_encoded)
